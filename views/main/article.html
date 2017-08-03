@@ -1,0 +1,26 @@
+﻿{%extends 'layout.html'%}
+{%block content%}
+
+<div class="container padded-t-10">
+    <div class="container col-md-9 padded-t-15 panel panel-default" id="leftSide">
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li><a href="#">新闻</a></li>
+            <li class="active">{{article.title}}</li>
+        </ol>
+        <div class="padded-b-5 padded-l-15 margin-b-15">
+            <h1 class="text-danger " data-title="{{article.title}}">{{article.title}}</h1>
+            <h4>By : {{article.user.username}}
+                <span class="margin-l-10"><span class="glyphicon glyphicon-time padded-r-5"></span>
+                 {{article.addTime|date('Y-m-d ')}}{{article.addTime|date('H:i:s',-8*60)}}
+                </span>
+            </h4>
+            <div class=" text-left padded-10 list-shadow" style=" border-right: 1px solid #e2e2e2;border-top: 2px solid #e2e2e2">
+                {% autoescape false %}{{article.content}}{% endautoescape %}
+            </div>
+        </div>
+    </div>
+    {% include 'rightSide.html' %}
+    <div class="clearfix"></div>
+</div>
+{%endblock%}

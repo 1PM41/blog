@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<ol class="breadcrumb">
+    <li><a href="/admin/content">内容管理</a></li>
+    <li><a >修改内容</a></li>
+</ol>
+<h3>修改内容 -- {{content.title}}</h3>
+<form role ="form " method="post">
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">所属分类</label>
+        <select name="category" class="form-control" id="category" >
+            {%for category in categories%}
+                {% if content.category._id.toString()  == category._id.toString()%}
+                <option value="{{category.id}}" selected>{{category.name}}</option>
+                {%else%}
+                <option value="{{category.id}}">{{category.name}}</option>
+                {%endif%}
+            {%endfor%}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">内容标题</label>
+        <input type="text" value="{{content.title}}" class="form-control" id="title" placeholder="请输入内容标题" name="title">
+    </div>
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">艺人名称</label>
+        <input type="text" value="{{content.artist}}" class="form-control" id="artist" placeholder="请输入艺人名称" name="artist">
+    </div>
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">专辑名称</label>
+        <input type="text" value="{{content.album}}"  class="form-control" id="album" placeholder="请输入专辑名称" name="album">
+    </div>
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">发布时间</label>
+        <input type="text" value="{{content.time}}"  class="form-control" id="time" placeholder="请输入发布时间" name="time">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="title" class=" control-label">排名</label>
+        <input type="text" value="{{content.ranking}}"  class="form-control" id="ranking" placeholder="请输入排名" name="ranking">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="title" class=" control-label">上周</label>
+        <input type="text" value="{{content.last}}"  class="form-control" id="last" placeholder="请输入上周排名" name="last">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="title" class="control-label">峰值</label>
+        <input type="text" value="{{content.peak}}"  class="form-control" id="peak" placeholder="请输入峰值" name="peak">
+    </div>
+    <div class="form-group col-md-3">
+        <label for="title" class=" control-label">上榜周数</label>
+        <input type="text" value="{{content.weeks}}"  class="form-control" id="weeks" placeholder="请输入上榜周数" name="weeks">
+    </div>
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">歌曲链接</label>
+        <input type="text"  value="{{content.audio}}" class="form-control" id="audio" placeholder="请输入歌曲链接" name="audio">
+    </div>
+    <div class="form-group">
+        <label for="thumbnails" class="col-sm-2 control-label">图片编码</label>
+        <textarea class="form-control" rows="5"  id="thumbnails" placeholder="请输入图片编码" name="thumbnails">{{content.thumbnails}}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">简介</label>
+        <textarea class="form-control" rows="5" id="description" placeholder="请输入内容简介" name="description">{{content.description}}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="content" class="col-sm-2 control-label">内容</label>
+        <textarea class="form-control" rows="10" id="content" placeholder="请输入内容" name="content">{{content.content}}</textarea>
+
+    </div>
+            <button type="submit" class="btn btn-default">提交</button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,150 @@
+﻿{%extends 'layout.html'%}
+{%block content%}
+    <script src="/public/js/renderIndex.js"></script>
+<section  class="container padded-0">
+    <div id="myCarousel" class="carousel slide">
+        <!-- 轮播（Carousel）指标 -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <!-- <li data-target="#myCarousel" data-slide-to="2"></li>-->
+        </ol>
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="http://img1.c.yinyuetai.com/others/admin/170719/0/7cda5fd8f0b1cada75e10f0e703d5ec8_0x0.jpg" alt="First slide">
+            </div>
+            <div class="item">
+                <img src="http://img1.c.yinyuetai.com/others/admin/170719/0/86d470e790083f86835b7f6c4bb9dea8_0x0.jpg" alt="Second slide">
+            </div>
+            <!-- <div class="item">
+                <img src="public/image/11.jpg" alt="Third slide">
+            </div>-->
+        </div>
+        <!-- 轮播（Carousel）导航 -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next" alret="left">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+</section>
+
+<section class="container padded-0 margin-t-10">
+    <div class="panel panel-default none-border margin-b-0 padded-l-10 padded-r-10 ">
+        <div class=" padded-l-15 padded-r-15 margin-0"   style="border-bottom: 2px #f2f2f2 solid">
+            <ul class="nav navbar-nav">
+                <a class="navbar-brand none-text-decoration">MUSIC</a>
+            </ul>
+            <ul class="nav navbar-nav" id="musicNav">
+                <li class="cursor-pointer list-shadow bg-yellow moveup-3"><input hidden value="{{category.id}}"><a class="none-text-decoration">全部</a></li>
+                {% for category in categories %}
+                <li class="cursor-pointer"><input hidden value="{{category.id}}"><a class="none-text-decoration">{{category.name}}</a></li>
+                {%endfor%}
+            </ul>
+            <ul class="nav navbar-nav navbar-right padded-t-5">
+                <a class="none-text-decoration float-right margin-l-5" href="/main"><small class="text-info more-shadow cursor-pointer"><span class="glyphicon glyphicon-plus"></span> 更多</small></a>
+                <!--<a class="none-text-decoration float-right " id="changeMusic"><small class="text-info more-shadow cursor-pointer"><span class="glyphicon glyphicon-refresh"></span> 换一换</small></a>
+            -->
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <!-- Default panel contents -->
+        <div class="panel-body">
+            <div class="row">
+                <div id="musicContentList" >
+                    <img class="center-block" src="/public/image/loading.gif">
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+</section>
+
+
+<div class="container">
+    <div class="row">
+        <section class="col-md-6 padded-0 margin-t-10" >
+            <div class="panel panel-default none-border margin-b-0 padded-l-10 padded-r-10">
+                <div class=" padded-l-15 padded-r-15 margin-0"   style="border-bottom: 2px #f2f2f2 solid">
+                    <ul class="nav navbar-nav">
+                        <a class="navbar-brand none-text-decoration">NEWS</a>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right padded-t-5">
+                        <a class="none-text-decoration float-right margin-l-5"  href="/news"><small class="text-info more-shadow cursor-pointer"><span class="glyphicon glyphicon-plus"></span> 更多</small></a>
+                        <a class="none-text-decoration float-right " id="changeNews"><small class="text-info more-shadow cursor-pointer"><span class="glyphicon glyphicon-refresh"></span> 换一换</small></a>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="newsContentList">
+                    <img  class="center-block img-responsive" src="/public/image/loading.gif" style="height:242px;">
+                </div>
+                <div class="margin-0">
+                    <h3 class="padded-t-10 padded-b-10 margin-0 padded-l-15"  style="border-top: 2px #f2f2f2 solid"></h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="col-md-6 padded-0 margin-t-10" >
+            <div class="panel panel-default none-border margin-b-0 padded-l-10 padded-r-10">
+                <div class=" padded-l-15 padded-r-15 margin-0"   style="border-bottom: 2px #f2f2f2 solid">
+                    <ul class="nav navbar-nav">
+                        <a class="navbar-brand none-text-decoration">CONTACT</a>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right padded-t-5">
+                        <a class="none-text-decoration float-right"   data-toggle="modal" data-target="#myModal2" id="sendContact"><small class="text-info more-shadow cursor-pointer"><span class="glyphicon glyphicon glyphicon-ok"></span> 发送</small></a>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <form class="form-horizontal" style="padding-top:11px ;" id="contact">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">姓名</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" placeholder="请输入您的姓名" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">号码</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" placeholder="请输入您的手机号码" name="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">邮箱</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" placeholder="请输入您的邮箱" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group margin-b-10">
+                        <label class="col-md-2 control-label">留言</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" rows="3" placeholder="请输入您的留言内容" name="message"></textarea>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel2">信息</h4>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-0">
+                    <h3 class="padded-t-10 padded-b-10 margin-0 padded-l-15"  style="border-top: 2px #f2f2f2 solid"></h3>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{%endblock%}

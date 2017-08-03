@@ -1,0 +1,84 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container padded-t-10">
+    <div class="container col-md-9 padded-t-15 panel panel-default" id="leftSide">
+        <div class=" padded-l-15 padded-r-15 margin-0"   style="border-bottom: 2px #f2f2f2 solid">
+            <ul class="nav navbar-nav">
+                <a class="navbar-brand none-text-decoration">音乐</a>
+            </ul>
+            <ul class="nav navbar-nav " id="cateList" >
+                <li><input hidden value=""><a href="/main" aria-controls="home">全部</a></li>
+                {% for category in categories %}
+                <li><input hidden value="{{category.id}}"><a href="/main?category={{category.id}}">{{category.name}}</a></li>
+                {%endfor%}
+                <li class="dropdown text-danger">
+                    <a href="#" class="dropdown-toggle text-primary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">排序<span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="sortList">
+                        <li data-name="news"><a href="/main?category={{category}}&sort=news">最新发布</a></li>
+                        <li data-name="views"><a href="/main?category={{category}}&sort=views">最多浏览</a></li>
+                        <li data-name="likes"><a href="/main?category={{category}}&sort=likes">最多点赞</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="form-inline float-right padded-t-5">
+                <select class="form-control hidden" id="type">
+                    <option>音乐</option>
+                </select>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="search" placeholder="请输入搜索内容标题">
+                </div>
+                <button type="button" id="searchBtn" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> </button>
+            </form>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body" >
+            <div class="row" id="list" >
+                <div class="tab-content" >
+                    <div role="tabpanel" class="tab-pane active" id="musicList" >
+                        {% for content in contents %}
+                        <div class="col-md-3" >
+                            <div class="thumbnail">
+                                <div class="block-header__tag">{{content.category.name}}</div>
+                                <img class="padded-t-5" src="{{content.thumbnails}}" alt="{{content.title}}">
+                                <div class="caption">
+                                    <h3 class="ellipsis-1 margin-t-10 margin-b-10">{{content.title}}</h3>
+                                    <p class="ellipsis-1">{{content.artist}}<p>
+                                    <p class="padded-b-5 padded-t-5 ellipsis-1">{{content.addTime|date('Y-m-d H:i:s',-8*60)}}</p>
+                                    <p class="ellipsis-1">浏览数：{{content.views}}</p>
+                                    <input type="hidden" value="{{content.id}}">
+                                    <span class=" float-right label label-danger cursor-pointer"><span class="glyphicon glyphicon-thumbs-up padded-r-5"></span>{{content.likes}}</span>
+                                    <input type="hidden" value="{{content.likes}}">
+                                    <a href="/view?contentid={{content.id}}" class="text-center">
+                                        <h4 class="col-md-12 bg-primary  padded-5 margin-0 margin-t-10">DETAIL</h4>
+                                    </a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div style="border-top:dashed 1px #e2e2e2 "></div>
+            <ul class="pager" >
+                {%if pages >0 %}
+                <li><span class="text-gbb">{{page}}/{{pages}}</span></li>
+                    {%if page <= 1%}
+                    <li class="previous"><a class="text-gbb" href="javascript:;">没有了</a></li>
+                    {%else%}
+                    <li class="previous"><a class="text-gbb" href="/main?category={{category}}&page={{page-1}}"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 上一页</a></li>
+                    {%endif%}
+                    {%if page >= pages%}
+                    <li class="next"><a class="text-gbb" href="javascript:;">没有了</a></li>
+                    {%else%}
+                    <li class="next"><a class="text-gbb" href="/main?category={{category}}&page={{page+1}}">下一页<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>
+                    {%endif%}
+                {%else%}
+                <li><h4 class="text-gbb">暂无资源</h4></li>
+                {%endif%}
+            </ul>
+        </div>
+    </div>
+{% include 'rightSide.html' %}
+</div>
+{%endblock%}

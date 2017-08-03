@@ -1,0 +1,84 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container padded-t-10">
+    <div class="container col-md-9 padded-t-15 panel panel-default" id="leftSide">
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li><a href="/main">音乐</a></li>
+            <li class="active">{{content.title}}</li>
+        </ol>
+        <!-- Default panel contents -->
+        <div class="padded-b-5 padded-l-15 margin-b-15" >
+            <h1 class="text-danger " data-title="{{content.title}}">{{content.title}}</h1>
+            <h4>By : {{content.user.username}}
+                <span class="margin-l-10"><span class="glyphicon glyphicon-time padded-r-5"></span>
+                    {{content.addTime|date('Y-m-d ')}}{{content.addTime|date('H:i:s',-8*60)}}
+                </span>
+                <span class="margin-l-10">
+                    浏览数：{{content.views}}
+                </span>
+                <span class="margin-l-10">
+                    评论:{{content.comments.length}}
+                </span>
+                <input type="hidden" value="{{content.id}}">
+                <span class=" float-right label label-danger cursor-pointer" id="likeBtn"><span class="glyphicon glyphicon-thumbs-up padded-r-5"></span>{{content.likes}}</span>
+                <input type="hidden" value="{{content.likes}}">
+            </h4>
+            <div class=" text-left padded-10 list-shadow" style=" border-right: 1px solid #e2e2e2;border-top: 2px solid #e2e2e2">
+                <div class="row padded-10 text-center">
+                    <div class="music-msk col-md-6">
+                        <img src="{{content.thumbnails}}" alt="..." class="img-circle img-spin center-block table-bordered" style="width: 150px;">
+                    </div>
+                    <div class=" text-left col-md-6">
+                        <h1><span>{{content.title}}</span></h1>
+                        <h4 class="row margin-0 padded-5"><span class="col-md-5">演唱者</span><span class="col-md-7">{{content.artist}}</span></h4>
+                        <h4 class="row margin-0 padded-5"><span class="col-md-5">所属专辑</span><span class="col-md-7">{{content.album}}</span></h4>
+                        <h4 class="row margin-0 padded-5"><span class="col-md-5">发行年份</span><span class="col-md-7">{{content.time}}</span></h4>
+                    </div>
+                </div>
+                {% if content.audio== '' %}
+                <div class="panel-heading text-center bg-danger margin-b-15"><h4 class="margin-0">暂无资源</h4></div>
+                {%else%}
+                <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=52 src="{{content.audio}}"></iframe>
+                {%endif%}
+                <div class=" panel panel-default" style="position:relative;">
+                    <div class="panel-heading text-center"><h4 class="margin-0 text-info">歌词</h4></div>
+                    <div class=" text-center padded-10" id="lyrics" style="height:150px; overflow:hidden;">
+                        {% autoescape false %}{{content.content}}{% endautoescape %}
+                        <div class="block-footer__tag text-gbb" style="cursor: pointer;" id="more">CLICK <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="padded-l-15">
+        <div class="panel-heading">
+            <h3 class="panel-title">评论<span style="float: right" id="count"></span> </h3>
+        </div>
+        <input type="hidden" id="contentId" value="{{content.id}}">
+        {%if userInfo._id%}
+        <textarea  id="msgContent" class="form-control " rows="3"></textarea>
+        <div class="padded-t-10 padded-b-10">
+            <button type="button" class="btn btn-default float-right" id="msgBtn">提交</button>
+            <div class="clearfix"></div>
+        </div>
+
+        {%else%}
+        <div class="panel-footer cursor-pointer text-danger text-center" id="plsLogin">
+            <h4>请先登录!</h4>
+        </div>
+        {%endif%}
+        <div class="panel panel-default" id="msgList">
+        </div>
+
+        <ul class="pager">
+            <li class="previous"></li>
+            <li></li>
+            <li class="next"></li>
+        </ul>
+    </div></div>
+    {% include 'rightSide.html' %}
+    <div class="clearfix"></div>
+</div>
+    <script src="/public/js/comment.js"></script>
+    {%endblock%}

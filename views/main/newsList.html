@@ -1,0 +1,101 @@
+﻿{%extends 'layout.html'%}
+{%block content%}
+<div class="container padded-t-10">
+    <div class="container col-md-9 padded-t-15 panel panel-default" id="leftSide">
+        <!--<div class="col-md-12">
+            <div class="panel panel-default ">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object " src="public/image/billboard.jpg" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body" id="ranking">
+                        <h1 class="media-heading text-center">THE HOT 5</h1>
+                        <ul class="list-group col-md-12" style="margin-bottom: 0px;">
+                            {% for ranking in rankings %}
+                            {% if ranking.ranking != ''%}
+                            <li class="list-group-item  text-gbb " style="font-size: large">
+                                {{ranking.ranking}} {{ranking.title}}
+                                <span class= "float-right glyphicon glyphicon-chevron-right"></span>
+                                <div class="media hidden">
+                                    <div class="media-body padded-l-15">
+
+                                            <h4 class="text-danger"><span class="col-md-6">LAST WEEK</span> <span>{{ranking.last}}</span></h4>
+                                            <h4 class="text-danger"><span class="col-md-6">PEAK POSITION</span> <span>{{ranking.peak}}</span></h4>
+                                            <h4 class="text-danger"><span class="col-md-6">WKS ON CHART </span><span>{{ranking.weeks}}</span></h4>
+                                    </div>
+                                    <div class="media-right">
+                                        <a href="#">
+                                            <img class="media-object " src="{{ranking.thumbnails}}" width="90px;" height="90px;">
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            {%endif%}
+                            {%endfor%}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class=" padded-l-15 padded-r-15 margin-0"   style="border-bottom: 2px #f2f2f2 solid">
+            <ul class="nav navbar-nav">
+                <a class="navbar-brand none-text-decoration">新闻</a>
+            </ul>
+            <form class="form-inline float-right padded-t-5">
+                <select class="form-control hidden" id="type">
+                    <option>新闻</option>
+                </select>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="search" placeholder="请输入搜索内容标题">
+                </div>
+                <button type="button" id="searchBtn" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> </button>
+            </form>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body padded-t-0">
+            <div class="row" id="list">
+                <div class="tab-content">
+                    <div class="alert alert-danger margin-b-0 margin-t-10 text-center hidden" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span id="count"></span>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="newsList">
+                        {% for article in articles %}
+                        <a class='none-text-decoration ' href='/article?articleid={{article.id}}' >
+                            <div class="row padded-15" style="border-bottom: dashed 1px #e2e2e2">
+                                <img class="col-md-2 " src="{{article.thumb}}" alt="{{content.title}}">
+                                <div class="col-md-10">
+                                    <h3 class="media-heading ellipsis-1 padded-b-5 padded-t-5">{{article.title}}</h3>
+                                    <h4 style="min-height: 30px">{{article.description}}</h4>
+                                    <h4 class="float-right" style="color:#8e8e8e">By : {{article.user.username}}<span class="margin-l-10"><span class="glyphicon glyphicon-time"></span> {{article.addTime|date('Y-m-d ')}}{{article.addTime|date('H:i:s',-8*60)}}</span></h4>
+                                </div>
+                            </div>
+                        </a>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <ul class="pager">
+                {%if pages >0 %}
+                <li><span class="text-gbb">{{page}}/{{pages}}</span></li>
+                {%if page <= 1%}
+                <li class="previous"><a class="text-gbb" href="javascript:;">没有了</a></li>
+                {%else%}
+                <li class="previous"><a class="text-gbb" href="/news?page={{page-1}}"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 上一页</a></li>
+                {%endif%}
+                {%if page >= pages%}
+                <li class="next"><a class="text-gbb" href="javascript:;">没有了</a></li>
+                {%else%}
+                <li class="next"><a class="text-gbb" href="/news?page={{page+1}}">下一页<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></li>
+                {%endif%}
+                {%else%}
+                <li><h4 class="text-gbb">暂无资源</h4></li>
+                {%endif%}
+            </ul>
+        </div>
+    </div>
+    {% include 'rightSide.html' %}
+</div>
+{%endblock%}

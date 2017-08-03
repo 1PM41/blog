@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<ol class="breadcrumb">
+    <li><a href="/admin/contact">留言管理</a></li>
+    <li><a >留言列表</a></li>
+</ol>
+<h3>留言列表</h3>
+<table style="table-layout:fixed" class="table table-hover table-striped">
+    <tr>
+        <th>ID</th>
+        <th>留言名称</th>
+        <th>留言号码</th>
+        <th>留言邮箱</th>
+        <th>留言内容</th>
+        <th>管理</th>
+        <th>是否回复</th>
+
+    </tr>
+    {% for contact in contacts %}
+    <tr>
+        <td>{{contact._id.toString()}}</td>
+        <td>{{contact.name}}</td>
+        <td>{{contact.phone}}</td>
+        <td>{{contact.email}}</td>
+        <td  style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{contact.userContact}}</td>
+        <td>
+            <a href="/admin/contact/delete?id={{contact._id.toString()}}">删除</a>
+            <a href="/admin/contact/detail?id={{contact._id.toString()}}">详情</a>
+        </td>
+        <td><a href="/admin/contact/reply">{%if contact.reply%}是{%else%}否{%endif%}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% include 'page.html' %}
+{% endblock %}

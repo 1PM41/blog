@@ -1,0 +1,58 @@
+{%extends 'layout.html'%}
+{%block content%}
+<script>
+    $(function() {
+    $.ajax({
+        url: '/api/user/search',
+        data: {
+            key: $('#search').val(),
+            type: $('#type').data('value')
+        },
+        success: function (responseData) {
+            searchResult = responseData.data;
+            renderResult();
+            //console.log(renderResult());
+        }
+    });
+    });
+</script>
+<div class="container padded-t-10">
+    <div class="container col-md-9 padded-t-15 panel panel-default" id="leftSide">
+        <div class=" padded-l-15 padded-r-15 margin-0"   style="border-bottom: 2px #f2f2f2 solid">
+            <ul class="nav navbar-nav">
+                <a class="navbar-brand none-text-decoration" >搜索结果</a>
+            </ul>
+
+            <form class="form-inline float-right padded-t-5">
+                <select class="form-control" id="type" data-value="{{type}}">
+                    <option>音乐</option>
+                    <option>新闻</option>
+                </select>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="search" placeholder="请输入搜索内容标题" value="{{key}}">
+                </div>
+                <button type="button" id="searchBtn" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+            </form>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body padded-t-0">
+            <div class="row">
+                <div class="tab-content">
+                    <div class="alert alert-danger margin-b-5 margin-t-10 text-center" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span id="newsCount"></span>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="searchList">
+                    </div>
+                </div>
+            </div>
+            <ul class="pager" id="newsPager">
+                <li class="previous"></li>
+                <li></li>
+                <li class="next"></li>
+            </ul>
+        </div>
+    </div>
+    {% include 'rightSide.html' %}
+</div>
+{%endblock%}

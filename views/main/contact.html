@@ -1,0 +1,31 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container padded-t-10">
+    <div class="container col-md-9 padded-t-15 panel panel-default" id="leftSide">
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li class="active">在线留言</li>
+        </ol>
+        <div class="padded-b-5 padded-l-15 margin-b-15">
+            <h1 class="text-danger " data-title="{{article.title}}">在线留言</h1>
+            <h4>By : Admin
+                <span class="margin-l-10" ><span class="glyphicon glyphicon-time padded-r-5"></span><span id="currentTime"></span>
+                </span>
+            </h4>
+            <div class=" text-left padded-10 list-shadow" style=" border-right: 1px solid #e2e2e2;border-top: 2px solid #e2e2e2">
+                <div class="panel panel-default none-border margin-b-0 padded-l-10 padded-r-10">
+                    <div class=" padded-l-15 padded-r-15 margin-0"   style="border-bottom: 2px #f2f2f2 solid">
+                        <ul class="nav navbar-nav">
+                            <a class="navbar-brand none-text-decoration "><strong>请填写一下内容</strong></a>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    {% include 'contactSubgroup.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'rightSide.html' %}
+    <div class="clearfix"></div>
+</div>
+{%endblock%}

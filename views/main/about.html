@@ -1,0 +1,32 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container padded-t-10">
+    <div class="container col-md-9 padded-t-15 panel panel-default" id="leftSide">
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li class="active">关于我们</li>
+        </ol>
+        <div class="padded-b-5 padded-l-15 margin-b-15">
+            <h1 class="text-danger " data-title="{{article.title}}">关于我们</h1>
+            <h4>By : Admin
+                <span class="margin-l-10" ><span class="glyphicon glyphicon-time padded-r-5"></span><span id="currentTime"></span>
+                </span>
+            </h4>
+            <div class=" text-left padded-10 list-shadow" style=" border-right: 1px solid #e2e2e2;border-top: 2px solid #e2e2e2">
+                <div class="article">
+                    <img src="/public/image/about.jpg" class="center-block margin-b-10">
+                    <h4 class="text-danger">本人求职状态为目前考虑更换工作，原因想向WEB前端发展，工作地点：东莞莞城/东城。</h4>
+                    <h4 class="text-primary">一：华南农业大学珠江学院，所学专业计算机科学与技术，学习计算机基础软件开发、网络安全配置和网页制作等课程；</h4>
+                    <h4 class="text-primary">二：通过了CET4考试，获得了CET4证书；</h4>
+                    <h4 class="text-primary">三：为人正直、能吃苦耐劳、爱好广泛，有极强的责任心和集体荣誉感；</h4>
+                    <h4 class="text-primary">四：熟悉使用bootstrap、jQuery、aui等前端框架；</h4>
+                    <h4 class="text-primary">五：灵活应用Dreamweaver、Photoshop、coredraw等软件，对nodejs服务端开发有所了解。</h4>
+                    <h4 class="text-danger">联系方式：zhangwm0769@foxmail.com</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'rightSide.html' %}
+    <div class="clearfix"></div>
+</div>
+{%endblock%}

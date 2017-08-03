@@ -1,0 +1,65 @@
+db数据库连接：
+cd Program Files\MongoDB\Server\3.2\bin
+mongod --dbpath=F:\GDI\untitled\db --port=27017
+mongod --dbpath=F:\GDI\music\db --port=27017
+mongod --dbpath=G:\music\db --port=27017
+
+
+1）在DOS下cd 进入到你想要创建项目的路径。
+2）mkdir XXX
+3）cd XXX
+4) npm init （初始化工程）
+
+歌曲封面200*200
+
+article:<h5 style="line-height:20px"> &nbsp &nbsp </h5>
+
+百度云 07691PM41！
+阿里云 ZZZ007zzz!           远程链接密码 196055
+
+http://120.77.38.99:8081/
+
+admin admin0769
+
+添加表结构（schemas）→新建一个模型（models）→后端引入（var XXX = require）
+
+mongDB模糊搜索：http://blog.fens.me/nodejs-mongodb-regexp/
+
+
+//关联字段 - 内容分类的id
+    category:{
+        //类型
+        type:mongoose.Schema.Types.ObjectId,
+        //引用
+        ref: 'Category'
+    },
+要引用的对象使用populate('category')方法引用
+
+1.第三方包一个个加
+
+2.数据库无法连接需删除db里的XXXX-lock
+
+移除：
+  //排行榜
+    var rankList = $('#ranking li');
+    rankList.on('mouseover', function () {
+        idx = $(this).index('#ranking li');
+        $(this).addClass('rankList-bg');
+        setTimeout(function () {
+            rankList.eq(idx).children().removeClass('hidden');
+            rankList.not(rankList.eq(idx)).addClass('hidden');
+            rankList.eq(idx).next().removeClass('hidden');
+            rankList.eq(idx).prev().removeClass('hidden');
+            rankList.eq(idx).find('.glyphicon').removeClass('glyphicon-chevron-right');
+            rankList.eq(idx).find('.glyphicon').addClass('glyphicon-chevron-down');
+        },1200);
+    });
+    rankList.on('mouseout', function () {
+        $(this).removeClass('rankList-bg');
+        setTimeout(function () {
+            rankList.children('div').addClass('hidden');
+            rankList.removeClass('hidden');
+            rankList.find('.glyphicon').addClass('glyphicon-chevron-right');
+            rankList.find('.glyphicon').removeClass('glyphicon-chevron-down');
+        },1200);
+    });

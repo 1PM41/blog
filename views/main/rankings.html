@@ -1,0 +1,151 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container padded-t-15">
+
+    <!--<div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="/main">Billboard</a></div>
+            <div class="panel-body">
+                <ol>
+                    <li role="presentation" class="active">
+
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="/main">NEWS</a></div>
+            <div class="panel-body">
+                <ol>
+                    <li role="presentation" class="active">
+
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>-->
+    <div class="col-md-12">
+        <div class="panel panel-default ">
+            <div class="media">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object" src="public/image/billboard.jpg" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h1 class="media-heading text-center">THE HOT 5</h1>
+                    <ul class="list-group col-md-12">
+                        <li class="list-group-item hidden"><span>Cras justo odio</span></li>
+                        <li class="list-group-item"><h4>Dapibus ac facilisis in</h4></li>
+                        <li class="list-group-item">
+                            <div class="media">
+                                <div class="media-body">
+                                    <h4>LAST WEEK</h4>
+                                    <h4>PEAK POSITION</h4>
+                                    <h4>WKS ON CHART</h4>
+                                </div>
+                                <div class="media-right">
+                                <a href="#">
+                                    <img class="media-object " src="public/image/billboard.jpg" width="125px;" height="125px;">
+                                </a>
+                            </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item hidden">Morbi leo risus</li>
+                        <li class="list-group-item hidden">Porta ac consectetur ac</li>
+                        <li class="list-group-item hidden">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default ">
+            <!-- Default panel contents -->
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">ALL</a></li>
+                {% for category in categories %}
+                <li role="presentation"><a href="#{{category.name}}" aria-controls="{{category.name}}" role="tab" data-toggle="tab">{{category.name}}</a></li>
+                {%endfor%}
+            </ul>
+            <div class="panel-body">
+                <div class="row" id="list">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            {% for content in contents %}
+                            <div class="col-sm-6 col-md-3" >
+                                <div class="thumbnail">
+                                    <div class="block-header__tag">{{content.category.name}}</div>
+                                    <img src="{{content.thumbnails}}" alt="{{content.title}}">
+                                    <div class="caption">
+                                        <h3 class="ellipsis-1">{{content.title}}</h3>
+                                        <p>Artist：{{content.artist}} <br> Time：{{content.addTime|date('Y-m-d H:i:s',-8*60)}}<br>Views：{{content.views}}<br>
+                                            <input type="hidden" value="{{content.id}}">
+                                            <span class=" float-right padded-r-15 label label-danger cursor-pointer"><span class="glyphicon glyphicon-thumbs-up padded-5"></span>{{content.likes}}</span>
+                                            <input type="hidden" value="{{content.likes}}">
+                                        </p>
+                                        <a href="/view?contentid={{content.id}}" class="text-center">
+                                            <h4 class="col-md-12 bg-primary  padded-5">DETAIL</h4>
+                                        </a>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {%endfor%}
+                        </div>
+                        {% for category in categories %}
+                        <div role="tabpanel" class="tab-pane" id="{{category.name}}">
+
+                            {% for content in contents %}
+                            {% if content.category.name == category.name %}
+                            <div class="col-sm-6 col-md-3" >
+                                <div class="thumbnail">
+                                    <div class="block-header__tag">{{content.category.name}}</div>
+                                    <img src="{{content.thumbnails}}" alt="{{content.title}}">
+                                    <div class="caption">
+                                        <h3 class="ellipsis-1">{{content.title}}</h3>
+                                        <p>Artist：{{content.artist}} <br> Time：{{content.addTime|date('Y-m-d H:i:s',-8*60)}}<br>Views：{{content.views}}</p>
+                                        <a href="/view?contentid={{content.id}}" class="text-center">
+                                            <h4 class="col-md-12 bg-primary  padded-5">DETAIL</h4>
+                                        </a>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <ul class="pager">
+                {%if page <= 1%}
+                <li class="previous"><a href="javascript:;"> 没有上一页</a></li>
+                {%else%}
+                <li class="previous"><a href="/?category={{category}}&page={{page-1}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                {%endif%}
+
+                {%if pages >0 %}
+                <li>一共{{count}}条数据，每页显示{{limit}}条数据，一共{{pages}}页，当前第{{page}}页</li>
+                {%else%}
+                <li><h4 class="text-gbb">NONE</h4></li>
+                {%endif%}
+
+
+                {%if page >= pages%}
+                <li class="next"><a href="javascript:;"> 没有下一页</a></li>
+                {%else%}
+                <li class="next"><a href="/?category={{category}}&page={{page+1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                {%endif%}
+            </ul>
+
+        </div>
+    </div>
+</div>
+{%endblock%}
